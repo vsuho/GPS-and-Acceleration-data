@@ -5,9 +5,10 @@ import folium
 from streamlit_folium import st_folium
 import matplotlib.pyplot as plt
 
-path = "Location.csv"
-df = pd.read_csv(path)
-df_2 = pd.read_csv("Linear Accelerometer.csv")
+url_acceleration = "https://raw.githubusercontent.com/vsuho/GPS-and-Acceleration-data/refs/heads/main/Linear%20Accelerometer.csv"
+url_gps = "https://raw.githubusercontent.com/vsuho/GPS-and-Acceleration-data/refs/heads/main/Location.csv"
+df = pd.read_csv(url_gps)
+df_2 = pd.read_csv(url_acceleration)
 N = 2  # Poistetaan ensimmäiset 2 riviä
 df = df.iloc[N:].reset_index(drop=True)
 df_2 = df_2.iloc[N:].reset_index(drop=True)
@@ -64,7 +65,7 @@ order = 3
 cutoff = 2 #cut-off -taajuus, riippuu askeltaajuudesta
 filt_signal = butter_lowpass_filter(data, cutoff, fs, nyq, order)
 
-fig, ax = plt.subplots(figsize=(20,6)) #Kuvan koko
+fig, ax = plt.subplots(figsize=(20,10)) #Kuvan koko
 #ax.plot(df_2['Time (s)'], df_2['Y (m/s^2)'], label='Alkuperäinen', alpha=0.5)
 ax.plot(df_2['Time (s)'], filt_signal, label='Suodatettu') #color='red')
 
